@@ -19,11 +19,14 @@ const Login = () => {
               Password
             </label>
             <input type="password" id="password" />
+            <Link className="text-xs text-left underline" to="/forgot-password">
+              Forgot password?
+            </Link>
           </div>
 
           <div className="flex flex-col gap-3 items-center">
             <input className="button" type="submit" value="Login" />
-            <Link className="button" to={"/sign-up"}>
+            <Link className="button" to="/sign-up">
               Sign-up
             </Link>
           </div>
