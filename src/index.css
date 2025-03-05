@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+.button {
+  border: solid black;
+  width: 100%;
+  text-align: center;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input,
+select {
+  border: solid black;
+}
