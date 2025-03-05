@@ -6,6 +6,9 @@ const Login = () => {
     <>
       <div className="grid h-screen text-center">
         <form onSubmit="" className="grid place-content-center gap-5">
+          <Link className="text-right font-bold" to="/">
+            X
+          </Link>
           <h1>Login</h1>
           <div className="flex flex-col">
             <label className="text-left" htmlFor="username">

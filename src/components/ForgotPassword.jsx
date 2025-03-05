@@ -16,7 +16,7 @@ const ForgotPassword = () => {
 
           <div className="flex flex-col gap-3 items-center">
             <input className="button" type="submit" value="Send Verification" />
-            <Link className="button" to="/">
+            <Link className="button" to="/login">
               Back
             </Link>
           </div>
