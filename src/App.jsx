@@ -1,26 +1,15 @@
-import { Link } from "react-router";
-import Login from "./components/Login";
-
-const components = [
-  {
-    path: "/login",
-    name: "Login Form",
-  },
-  {
-    path: "/api-fetch-methods",
-    name: "API Fetch Methods",
-  },
-];
+import { Outlet } from "react-router";
+import HomeButton from "./components/HomeButton";
+import "./app.css";
 
 const App = () => {
   return (
-    <div className="flex flex-col gap-2 justify-center items-center h-screen">
-      {components.map(({ path, name }) => (
-        <Link id={name} to={path} className="button max-w-50">
-          {name}
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col h-screen">
+        <HomeButton />
+        <Outlet />
+      </div>
+    </>
   );
 };
 
