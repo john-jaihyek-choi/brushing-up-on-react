@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import HomeButton from "../HomeButton";
 
 const ForgotPassword = () => {
   return (
