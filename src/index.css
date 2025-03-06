@@ -5,3 +5,8 @@ body {
   border-color: white;
   color: white;
 }
+
+button,
+.button {
+  cursor: pointer;
+}

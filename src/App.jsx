@@ -5,10 +5,10 @@ import "./app.css";
 const App = () => {
   return (
     <>
-      <div className="flex flex-col h-screen">
-        <div className="sticky m-2">
+      <div className="flex flex-col h-screen text-center gap-5">
+        <div className="sticky m-2 text-left">
           <Link to="/">
-            <Home size={24} />
+            <Home size={24} className="inline text-left" />
           </Link>
         </div>
 
