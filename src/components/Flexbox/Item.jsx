@@ -1,4 +1,4 @@
-const Items = ({ id, height, basis }) => {
+const Item = ({ id, height, basis }) => {
   return (
     <div
       className={`flex-item flex items-center justify-center`}
@@ -11,4 +11,4 @@ const Items = ({ id, height, basis }) => {
     </div>
   );
 };
-export default Items;
+export default Item;
