@@ -1,10 +1,10 @@
-import Container from "../components/Flexbox/Container";
+import Flexbox from "../components/Flexbox/Flexbox";
 
-const Flexbox = [
+const flexbox = [
   {
     path: "/flexbox",
-    element: <Container />,
+    element: <Flexbox />,
   },
 ];
 
-export default Flexbox;
+export default flexbox;
