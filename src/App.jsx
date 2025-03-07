@@ -1,17 +1,13 @@
-import { Link, Outlet } from "react-router";
-import { Home } from "lucide-react";
+import React from "react";
+import { Outlet } from "react-router";
+import HomeButton from "./components/HomeButton/HomeButton";
 import "./app.css";
 
 const App = () => {
   return (
     <>
       <div className="flex flex-col h-screen text-center gap-5">
-        <div className="sticky m-2 text-left">
-          <Link to="/">
-            <Home size={24} className="inline text-left" />
-          </Link>
-        </div>
-
+        <HomeButton />
         <Outlet />
       </div>
     </>
