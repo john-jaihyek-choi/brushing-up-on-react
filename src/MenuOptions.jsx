@@ -13,6 +13,14 @@ const components = [
     path: "/flexbox",
     name: "Flexbox",
   },
+  {
+    path: "/hooks",
+    name: "Hooks",
+  },
+  {
+    path: "/performance-optimization",
+    name: "Performance Optimization",
+  },
 ];
 
 const MenuOptions = () => {
