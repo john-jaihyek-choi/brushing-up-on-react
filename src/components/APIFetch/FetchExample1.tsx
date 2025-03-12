@@ -1,10 +1,10 @@
-import { Link } from "react-router";
 import { useEffect, useState } from "react";
+import { DiscoverMovieResponse, Movies } from "./types";
 
-const TMDB_API_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
+const TMDB_API_TOKEN: string = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 
 const FetchExample1 = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movies[]>([]);
 
   const getMovies = async () => {
     const response = await fetch(
@@ -18,14 +18,14 @@ const FetchExample1 = () => {
       }
     );
 
-    const movies = await response.json();
+    const movies: DiscoverMovieResponse = await response.json();
 
     setMovies(movies.results);
   };
 
   useEffect(() => {
     getMovies();
-  }, [movies]);
+  }, []);
 
   return (
     <>
