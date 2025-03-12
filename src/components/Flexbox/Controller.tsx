@@ -1,6 +1,11 @@
 import React from "react";
+import { CSSProperties } from "./types";
 
-const Controller = ({ setCssProperties }) => {
+interface ControllerProps {
+  setCssProperties: React.Dispatch<React.SetStateAction<CSSProperties>>;
+}
+
+const Controller = ({ setCssProperties }: ControllerProps) => {
   return (
     <div className="flex gap-2 justify-center items-center">
       <label htmlFor="item-count">Item count:</label>

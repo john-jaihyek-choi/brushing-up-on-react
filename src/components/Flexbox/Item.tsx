@@ -1,4 +1,10 @@
-const Item = ({ id, height, basis }) => {
+interface ItemProps {
+  id: number;
+  height: number;
+  basis: number;
+}
+
+const Item = ({ id, height, basis }: ItemProps) => {
   return (
     <div
       className={`flex-item flex items-center justify-center`}

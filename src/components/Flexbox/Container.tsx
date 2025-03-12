@@ -1,6 +1,11 @@
 import Item from "./Item";
+import { CSSProperties } from "./types";
 
-const Container = ({ cssProperties }) => {
+interface ContainerProps {
+  cssProperties: CSSProperties;
+}
+
+const Container = ({ cssProperties }: ContainerProps) => {
   const { wrap, direction, itemCount, height, basis } = cssProperties;
 
   return (
