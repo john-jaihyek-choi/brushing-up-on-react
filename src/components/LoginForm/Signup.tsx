@@ -1,11 +1,10 @@
-import React from "react";
 import { Link } from "react-router";
 
 const Login = () => {
   return (
     <>
       <div className="grid h-screen text-center">
-        <form onSubmit="" className="grid place-content-center gap-5">
+        <form className="grid place-content-center gap-5">
           <h1>Sign-Up</h1>
           <div className="flex flex-col">
             <label className="text-left" htmlFor="username">
