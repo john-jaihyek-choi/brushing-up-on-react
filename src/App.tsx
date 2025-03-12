@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router";
 import HomeButton from "./components/HomeButton/HomeButton";
 import "./app.css";
