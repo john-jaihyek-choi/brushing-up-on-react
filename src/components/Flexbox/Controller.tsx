@@ -7,7 +7,7 @@ interface ControllerProps {
 
 const Controller = ({ setCssProperties }: ControllerProps) => {
   return (
-    <div className="flex gap-2 justify-center items-center">
+    <div className="flex gap-2 flex-xy-center">
       <label htmlFor="item-count">Item count:</label>
       <input
         type="number"

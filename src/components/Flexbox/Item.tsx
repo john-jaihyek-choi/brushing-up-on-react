@@ -7,7 +7,7 @@ interface ItemProps {
 const Item = ({ id, height, basis }: ItemProps) => {
   return (
     <div
-      className={`flex-item flex items-center justify-center`}
+      className={`flex-container flex-xy-center border border-blue-600`}
       style={{
         height: `${height}%`,
         flex: `${0} ${0} ${basis}%`,

@@ -10,7 +10,7 @@ const Container = ({ cssProperties }: ContainerProps) => {
 
   return (
     <div
-      className={`flex-container flex h-full overflow-auto ${wrap} ${direction}`}
+      className={`flex-container border border-solid border-white overflow-auto ${wrap} ${direction}`}
     >
       {[...Array(itemCount)].map((_, i) => (
         <Item key={`item-${i + 1}`} id={i + 1} height={height} basis={basis} />

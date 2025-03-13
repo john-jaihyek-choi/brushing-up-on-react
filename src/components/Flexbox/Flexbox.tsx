@@ -2,7 +2,6 @@ import { useState } from "react";
 import Container from "./Container";
 import Controller from "./Controller";
 import { CSSProperties } from "./types";
-import "./styles.css";
 
 const Flexbox = () => {
   const [cssProperties, setCssProperties] = useState<CSSProperties>({
