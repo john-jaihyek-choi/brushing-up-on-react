@@ -33,3 +33,8 @@ button:hover,
 select {
   border: solid white;
 }
+
+table,
+thead > tr {
+  border: 1px solid white;
+}
