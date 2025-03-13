@@ -4,7 +4,7 @@ import ForgotPassword from "../components/LoginForm/ForgotPassword";
 
 const loginForm = [
   {
-    path: "/login",
+    path: "/login-form",
     element: <Login />,
   },
   {
