@@ -1,22 +1,33 @@
-import UseReducer from "../components/Hooks/UseReducer";
+import Counter from "../components/Hooks/Counter";
 import Menu from "../components/Menu/Menu";
 import { MenuOptions } from "../components/Menu/types";
 
-const menuOptions: MenuOptions[] = [
+const hookOptions: MenuOptions[] = [
   {
     path: "/hooks/use-reducer",
-    name: "useReducer",
+    name: "Counter",
+  },
+];
+
+const useReducerOptions: MenuOptions[] = [
+  {
+    path: "/hooks/use-reducer/counter",
+    name: "Counter",
   },
 ];
 
 const Hooks = [
   {
     path: "/hooks",
-    element: <Menu options={menuOptions} />,
+    element: <Menu options={hookOptions} />,
   },
   {
     path: "/hooks/use-reducer",
-    element: <UseReducer />,
+    element: <Menu options={useReducerOptions} />,
+  },
+  {
+    path: "/hooks/use-reducer/counter",
+    element: <Counter />,
   },
 ];
 
