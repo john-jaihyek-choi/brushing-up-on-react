@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { DiscoverMovieResponse, Movies } from "../APIFetch/types";
-import useDebounce from "./useDebounceV1";
+import useDebounce from "./useCustomDebounce";
+import _ from "lodash";
 
 const Debounce = () => {
   const [movies, setMovies] = useState<Movies[]>([]);
@@ -8,6 +9,11 @@ const Debounce = () => {
 
   const getMovies = useCallback(async (query: string): Promise<void> => {
     try {
+      if (!query) {
+        setMovies([]);
+        return;
+      }
+
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${query}`,
         {
@@ -28,6 +34,7 @@ const Debounce = () => {
   }, []);
 
   const debounceSearch = useDebounce(getMovies, debounceDelay);
+  const lodashDebounceSearch = _.debounce(getMovies, debounceDelay);
 
   return (
     <div className="flex-container flex-xy-center gap-10">
@@ -41,9 +48,7 @@ const Debounce = () => {
             type="text"
             placeholder=" Search movies..."
             className="rounded-lg"
-            onChange={(e) =>
-              e.target.value ? debounceSearch(e.target.value) : setMovies([])
-            }
+            onChange={(e) => lodashDebounceSearch(e.target.value)}
           />
         </div>
         <div className="flex-container">
