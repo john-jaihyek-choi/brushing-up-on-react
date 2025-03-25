@@ -9,7 +9,6 @@ const Debounce = () => {
 
   const getMovies = async (query: string): Promise<void> => {
     try {
-      console.log(query);
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${query}`,
         {
