@@ -3,9 +3,10 @@ import { CSSProperties } from "./types";
 
 interface ControllerProps {
   setCssProperties: React.Dispatch<React.SetStateAction<CSSProperties>>;
+  cssProperties: CSSProperties;
 }
 
-const Controller = ({ setCssProperties }: ControllerProps) => {
+const Controller = ({ setCssProperties, cssProperties }: ControllerProps) => {
   return (
     <div className="flex gap-2 flex-xy-center">
       <label htmlFor="item-count">Item count:</label>
@@ -54,22 +55,25 @@ const Controller = ({ setCssProperties }: ControllerProps) => {
         <option value="flex-col">column</option>
         <option value="flex-col-reverse">column-reverse</option>
       </select>
-      <label htmlFor="height">Height</label>
+      <label htmlFor="crossAxis">
+        {cssProperties.direction.includes("row") ? "Height" : "Width"}{" "}
+        (Cross-axis)
+      </label>
       <input
         type="range"
-        id="height"
-        name="height"
+        id="crossAxis"
+        name="crossAxis"
         min={10}
         max={100}
         defaultValue={100}
         onChange={(e) =>
           setCssProperties((prev) => ({
             ...prev,
-            height: Number(e.target.value),
+            crossAxis: Number(e.target.value),
           }))
         }
       />
-      <label htmlFor="basis">Basis</label>
+      <label htmlFor="basis">Basis (Main-axis)</label>
       <input
         type="range"
         id="basis"

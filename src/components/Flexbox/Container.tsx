@@ -6,14 +6,20 @@ interface ContainerProps {
 }
 
 const Container = ({ cssProperties }: ContainerProps) => {
-  const { wrap, direction, itemCount, height, basis } = cssProperties;
+  const { wrap, direction, itemCount, crossAxis, basis } = cssProperties;
 
   return (
     <div
-      className={`flex-container border border-solid border-white overflow-auto ${wrap} ${direction}`}
+      className={`flex h-full border border-solid border-white overflow-auto ${wrap} ${direction}`}
     >
       {[...Array(itemCount)].map((_, i) => (
-        <Item key={`item-${i + 1}`} id={i + 1} height={height} basis={basis} />
+        <Item
+          key={`item-${i + 1}`}
+          id={i + 1}
+          height={crossAxis}
+          width={crossAxis}
+          basis={basis}
+        />
       ))}
     </div>
   );

@@ -8,13 +8,16 @@ const Flexbox = () => {
     itemCount: 10,
     wrap: "flex-nowrap",
     direction: "flex-row",
-    height: 100,
+    crossAxis: 100,
     basis: 10,
   });
 
   return (
     <>
-      <Controller setCssProperties={setCssProperties} />
+      <Controller
+        setCssProperties={setCssProperties}
+        cssProperties={cssProperties}
+      />
       <Container cssProperties={cssProperties} />
     </>
   );
