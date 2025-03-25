@@ -38,3 +38,7 @@ table,
 thead > tr {
   border: 1px solid white;
 }
+
+input[type="text"] {
+  border-radius: 0.5rem;
+}
