@@ -9,6 +9,7 @@ import APIFetchMethods from "./routes/APIFetchMethods";
 import LoginForm from "./routes/LoginForm";
 import Flexbox from "./routes/Flexbox";
 import Hooks from "./routes/Hooks";
+import PerformanceOptimization from "./routes/PerformanceOptimization";
 
 const menuOptions: MenuOptions[] = [
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
       ...APIFetchMethods,
       ...Flexbox,
       ...Hooks,
+      ...PerformanceOptimization,
     ],
   },
 ]);
