@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { DiscoverMovieResponse, Movies } from "../APIFetch/types";
 
 const Debounce = () => {
@@ -28,18 +28,30 @@ const Debounce = () => {
     }
   };
 
-  const debounce = (
-    fn: (args: any) => Promise<void>,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    clearTimeout(scheduledAPICall!);
+  const debounce = useCallback(
+    (fn: (args: any) => Promise<void>, val: string) => {
+      if (!val.trim()) {
+        setMovies([]);
+        return;
+      }
 
-    setScheduledAPICall(
-      setTimeout(() => {
-        fn(e.target.value);
-      }, debounceDelay)
-    );
-  };
+      clearTimeout(scheduledAPICall!);
+
+      setScheduledAPICall(
+        setTimeout(() => {
+          fn(val);
+        }, debounceDelay)
+      );
+    },
+    [scheduledAPICall, debounceDelay]
+  );
+
+  useEffect(() => {
+    return () => {
+      // scheduleAPICall cleanup before each re-render and after unmount
+      if (scheduledAPICall) clearTimeout(scheduledAPICall);
+    };
+  }, [scheduledAPICall]);
 
   return (
     <div className="flex-container flex-xy-center gap-10">
@@ -51,7 +63,7 @@ const Debounce = () => {
           <input
             type="text"
             placeholder="Search movies..."
-            onChange={(e) => debounce(getMovies, e)}
+            onChange={(e) => debounce(getMovies, e.target.value)}
           />
         </div>
         <div className="flex-container">
