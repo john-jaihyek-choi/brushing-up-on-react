@@ -1,13 +1,12 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { DiscoverMovieResponse, Movies } from "../APIFetch/types";
+import useDebounce from "./useDebounceV1";
 
 const Debounce = () => {
   const [movies, setMovies] = useState<Movies[]>([]);
-  const [scheduledAPICall, setScheduledAPICall] =
-    useState<NodeJS.Timeout | null>(null);
   const [debounceDelay, setDebounceDelay] = useState<number>(1500);
 
-  const getMovies = async (query: string): Promise<void> => {
+  const getMovies = useCallback(async (query: string): Promise<void> => {
     try {
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${query}`,
@@ -26,32 +25,9 @@ const Debounce = () => {
     } catch (error) {
       console.error("Fetch error: ", error);
     }
-  };
+  }, []);
 
-  const debounce = useCallback(
-    (fn: (args: any) => Promise<void>, val: string) => {
-      if (!val.trim()) {
-        setMovies([]);
-        return;
-      }
-
-      clearTimeout(scheduledAPICall!);
-
-      setScheduledAPICall(
-        setTimeout(() => {
-          fn(val);
-        }, debounceDelay)
-      );
-    },
-    [scheduledAPICall, debounceDelay]
-  );
-
-  useEffect(() => {
-    return () => {
-      // scheduleAPICall cleanup before each re-render and after unmount
-      if (scheduledAPICall) clearTimeout(scheduledAPICall);
-    };
-  }, [scheduledAPICall]);
+  const debounceSearch = useDebounce(getMovies, debounceDelay);
 
   return (
     <div className="flex-container flex-xy-center gap-10">
@@ -61,9 +37,13 @@ const Debounce = () => {
             Search
           </label>
           <input
+            id="search"
             type="text"
-            placeholder="Search movies..."
-            onChange={(e) => debounce(getMovies, e.target.value)}
+            placeholder=" Search movies..."
+            className="rounded-lg"
+            onChange={(e) =>
+              e.target.value ? debounceSearch(e.target.value) : setMovies([])
+            }
           />
         </div>
         <div className="flex-container">
@@ -71,8 +51,10 @@ const Debounce = () => {
             Debounce Delay (ms)
           </label>
           <input
+            id="debounce-delay"
             type="number"
             defaultValue={1500}
+            min={0}
             onChange={(e) => setDebounceDelay(Number(e.target.value))}
           />
         </div>
