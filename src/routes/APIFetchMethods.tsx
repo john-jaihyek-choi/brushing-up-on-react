@@ -5,7 +5,7 @@ import { MenuOptions } from "../components/Menu/types";
 const menuOptions: MenuOptions[] = [
   {
     path: "/api-fetch-methods/fetch-example-1",
-    name: "Fetch Example 1",
+    name: "Native useEffect Fetch",
   },
 ];
 
