@@ -63,7 +63,7 @@ const FetchExample1 = () => {
       setIsError(true);
       console.error("Fetch error: ", error);
     } finally {
-      setTimeout(() => setIsLoading(false), 500);
+      setIsLoading(false);
     }
   };
 
@@ -104,7 +104,7 @@ const FetchExample1 = () => {
           </button>
         ))}
         <button
-          className="cursor-pointer "
+          className="cursor-pointer"
           onClick={() => dispatchPages({ type: "next" })}
           disabled={
             pages.current >= MAX_PAGE &&
