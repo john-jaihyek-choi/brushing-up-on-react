@@ -1,47 +1,45 @@
 import { useEffect, useState, useReducer } from "react";
 import { DiscoverMovieResponse, Movies } from "./types";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-interface Pages {
+interface PagesState {
   window: number[];
   current: number;
-  last: number | null;
+  end: number;
 }
 
-type PagesAction = "next" | "prev" | "select";
+interface PagesUpdatePayload {
+  end?: number;
+  page?: number;
+}
 
-const pagesReducer = (pages: Pages, action: PagesAction): Pages => {
-  switch (action) {
-    case "next":
-      if (pages.current == pages.last) return pages;
+type PagesAction =
+  | { type: "next" }
+  | { type: "prev" }
+  | { type: "select"; payload: PagesUpdatePayload }
+  | { type: "update"; payload: PagesUpdatePayload };
 
-      return {
-        ...pages,
-        window: pages.window.map((pg) => pg + 1),
-        current: pages.current + 1,
-      };
-    case "prev":
-      if (pages.current == 1) return pages;
+const PAGE_WINDOW_SIZE = 5;
+const PAGE_START = 1;
+const MAX_PAGE = 500;
 
-      return {
-        ...pages,
-        window: pages.window.map((pg) => pg - 1),
-        current: pages.current - 1,
-      };
-    default:
-      return pages;
-  }
+const DEFAULT_PAGES_STATE: PagesState = {
+  window: Array.from(
+    { length: PAGE_WINDOW_SIZE },
+    (_, i) =>
+      (PAGE_START > MAX_PAGE - PAGE_WINDOW_SIZE
+        ? MAX_PAGE - PAGE_WINDOW_SIZE + 1
+        : PAGE_START) + i
+  ),
+  current: PAGE_START,
+  end: MAX_PAGE,
 };
 
 const FetchExample1 = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [movies, setMovies] = useState<Movies[]>([]);
-  const [pages, dispatchPage] = useReducer(pagesReducer, {
-    window: [1, 2, 3],
-    current: 1,
-    last: null,
-  });
+  const [pages, dispatchPages] = useReducer(pagesReducer, DEFAULT_PAGES_STATE);
 
   const getMovies = async () => {
     try {
@@ -75,40 +73,86 @@ const FetchExample1 = () => {
 
   if (isError) return <p>Error Fetching Results!</p>;
 
-  return isLoading ? (
-    <p>Loading...</p>
-  ) : (
+  return (
     <>
       <div className="flex justify-center items-center">
         <button
-          className="cursor-pointer"
-          onClick={(e) => dispatchPage("prev")}
+          className="cursor-pointer "
+          onClick={() => dispatchPages({ type: "prev" })}
+          disabled={
+            pages.current <= 1 &&
+            pages.window[PAGE_WINDOW_SIZE - 1] <=
+              pages.window[PAGE_WINDOW_SIZE - 1]
+          }
         >
-          <ArrowLeft />
+          <ChevronLeft />
         </button>
         {pages.window.map((page) => (
           <button
-            className={`px-3 cursor-pointer ${
+            key={`page-${page}`}
+            className={`px-3 cursor-pointer  ${
               pages.current == page ? "font-extrabold underline" : ""
             }`}
+            onClick={(e) =>
+              dispatchPages({
+                type: "select",
+                payload: { page: Number(e.currentTarget.textContent) },
+              })
+            }
           >
             {page}
           </button>
         ))}
         <button
-          className="cursor-pointer"
-          onClick={(e) => dispatchPage("next")}
+          className="cursor-pointer "
+          onClick={() => dispatchPages({ type: "next" })}
+          disabled={
+            pages.current >= MAX_PAGE &&
+            pages.window[0] <= MAX_PAGE - (PAGE_WINDOW_SIZE - 2)
+          }
         >
-          <ArrowRight />
+          <ChevronRight />
         </button>
       </div>
-      <div>
-        {movies.map((movie) => (
-          <p key={movie.id}>{movie.title}</p>
-        ))}
-      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {movies.map((movie) => (
+            <p key={movie.id}>{movie.title}</p>
+          ))}
+        </div>
+      )}
     </>
   );
+};
+
+const pagesReducer = (pages: PagesState, action: PagesAction): PagesState => {
+  switch (action.type) {
+    case "next":
+      return {
+        ...pages,
+        window: pages.window.includes(pages.current + 1)
+          ? pages.window
+          : pages.window.map((pg) => pg + 1),
+        current: pages.current + 1,
+      };
+    case "prev":
+      return {
+        ...pages,
+        window: pages.window.includes(pages.current - 1)
+          ? pages.window
+          : pages.window.map((pg) => pg - 1),
+        current: pages.current - 1,
+      };
+    case "select":
+      return {
+        ...pages,
+        current: action.payload.page!,
+      };
+    default:
+      return pages;
+  }
 };
 
 export default FetchExample1;
