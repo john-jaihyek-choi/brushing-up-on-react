@@ -1,0 +1,66 @@
+.main {
+  width: 100%;
+  height: 100%;
+  background: gray;
+  text-align: start;
+}
+
+.sidebar-button {
+  display: inline;
+  position: sticky;
+  margin: 5px;
+  left: 0;
+  top: 0;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.sidebar-button.hide {
+  visibility: hidden;
+}
+
+.close-sidebar {
+  position: sticky;
+  margin: 5px;
+  left: 100%;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  background: tan;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar > :not(:first-child) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+}
+
+.sidebar > :first-child {
+  display: flex;
+  font-size: large;
+}
+
+.user-icon {
+  position: sticky;
+  left: 0%;
+  top: 0;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+}
