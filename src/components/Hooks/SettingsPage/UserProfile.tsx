@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { PanelRightOpen, PanelLeft, CircleUserRound } from "lucide-react";
+import {
+  PanelRightOpen,
+  PanelLeft,
+  CircleUserRound,
+  ArrowLeftToLine,
+  Menu,
+} from "lucide-react";
 import "./style.css";
 
 const UserProfile = () => {
@@ -45,31 +51,47 @@ Design:
     - some image and text
 */
   const [sidebarStatus, setSidebarStatus] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("John Choi");
+  const [light, setLight] = useState<boolean>(true);
 
   return (
-    <main className="main">
-      <nav className={`sidebar ${sidebarStatus ? "open" : ""}`}>
-        <div className="flex items-center">
-          <CircleUserRound className="user-icon" />
-          <h1>username</h1>
-          <PanelRightOpen
+    <>
+      <main className="main">
+        <Menu
+          className={`sidebar-button ${sidebarStatus ? "hide" : ""}`}
+          onClick={() => {
+            setSidebarStatus(true);
+          }}
+        />
+        <nav className={`sidebar ${sidebarStatus ? "open" : ""}`}>
+          <ArrowLeftToLine
             className="close-sidebar"
             onClick={() => {
               setSidebarStatus(false);
             }}
           />
-        </div>
-        <div>Option 1</div>
-        <div>Option 2</div>
-        <div>Option 3</div>
-      </nav>
-      <PanelLeft
-        className={`sidebar-button ${sidebarStatus ? "hide" : ""}`}
-        onClick={() => {
-          setSidebarStatus(true);
-        }}
-      />
-    </main>
+          <div className="user-profile">
+            <CircleUserRound size={50} />
+            <h1>{username}</h1>
+          </div>
+          <div>Option 1</div>
+          <div>Option 2</div>
+          <div>Option 3</div>
+          <div>
+            <label className={`toggler ${light ? "" : "checked"}`}>
+              <input
+                type="checkbox"
+                checked={light}
+                onChange={() => {
+                  setLight(!light);
+                }}
+              />
+              <span className="slider"></span>
+            </label>
+          </div>
+        </nav>
+      </main>
+    </>
   );
 };
 export default UserProfile;
