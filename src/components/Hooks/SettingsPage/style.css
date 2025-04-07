@@ -1,4 +1,5 @@
 .main {
+  position: relative;
   width: 100%;
   height: 100%;
   background: gray;
@@ -7,7 +8,7 @@
 
 .sidebar-button {
   display: inline;
-  position: sticky;
+  position: absolute;
   margin: 5px;
   left: 0;
   top: 0;
@@ -21,17 +22,23 @@
 }
 
 .close-sidebar {
-  position: sticky;
+  position: absolute;
+  place-self: end;
   margin: 5px;
-  left: 100%;
+  right: 0;
   top: 0;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .sidebar {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  top: 0;
   width: 250px;
   height: 100%;
   background: tan;
@@ -46,21 +53,63 @@
 
 .sidebar > :not(:first-child) {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 75px;
 }
 
-.sidebar > :first-child {
+.sidebar > :last-child {
   display: flex;
-  font-size: large;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
 }
 
-.user-icon {
+.user-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: sticky;
-  left: 0%;
-  top: 0;
-  margin: 5px;
-  width: 40px;
-  height: 40px;
+}
+
+.toggler {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 5px 0 5px;
+  width: 60px;
+  height: 34px;
+  border-radius: 34px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.toggler .slider {
+  transition: transform 0.3s ease-in;
+}
+
+.toggler.checked {
+  background-color: rgb(30, 30, 30);
+}
+
+.toggler.checked .slider {
+  transform: translateX(19px);
+  transition: transform 0.3s ease-in;
+  background-color: white;
+}
+
+.toggler input {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  cursor: pointer;
+  left: 25px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: gray;
 }
